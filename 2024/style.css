@@ -1,0 +1,226 @@
+/* Style global */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "Times New Roman", Times, serif;
+    background-color: #1e2f3f;
+    color: #f0f0f0;
+    margin: 0;
+    line-height: 1.8;
+    font-size: 20px;
+}
+
+/* Titres */
+h1, h2, h3, h4, h5, h6 {
+    color: #87ceeb;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+    line-height: 1.4;
+    font-weight: bold;
+}
+
+h1 {
+    font-size: 3em;
+    border-bottom: 2px solid #87ceeb;
+}
+
+h2 {
+    font-size: 2.5em;
+    border-bottom: 1px solid #87ceeb;
+}
+
+h3 {
+    font-size: 2em;
+}
+
+/* Texte en surbrillance */
+.highlight {
+    background-color: #a0d8ef;
+    color: #000000;
+    padding: 2px 5px;
+    border-radius: 3px;
+    font-weight: bold;
+    font-style: italic;
+}
+
+/* Liens */
+a {
+    color: burlywood;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    color: #b0e0e6;
+    text-decoration: underline;
+}
+
+/* Boutons */
+button, input[type="button"], input[type="submit"] {
+    background-color: #4682b4;
+    color: #ffffff;
+    border: none;
+    padding: 10px 15px;
+    font-size: 1.2em;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover, input[type="button"]:hover, input[type="submit"]:hover {
+    background-color: #add8e6;
+}
+
+/* Formulaires */
+input[type="text"], textarea, select {
+    background-color: #2e3b4f;
+    color: #f0f0f0;
+    border: 1px solid #87ceeb;
+    padding: 10px;
+    width: 100%;
+    border-radius: 5px;
+    font-size: 1.2em;
+    margin-bottom: 1em;
+}
+
+input:focus, textarea:focus, select:focus {
+    outline: none;
+    border-color: #b0e0e6;
+    box-shadow: 0 0 10px #b0e0e6;
+}
+
+/* Listes */
+ul, ol {
+    margin: 1em 0;
+    padding: 0 1em;
+    color: #87ceeb;
+}
+
+li {
+    margin: 0.7em 0;
+    color: #b0e0e6;
+}
+
+/* Notifications */
+.notification {
+    background-color: #2e3b4f;
+    border: 1px solid #87ceeb;
+    padding: 15px;
+    margin: 1em 0;
+    border-radius: 5px;
+    color: #f0f0f0;
+}
+
+/* Cartes */
+.card {
+    background-color: #2e3b4f;
+    border: 1px solid #4682b4;
+    padding: 20px;
+    margin: 1em 0;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Tableaux */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1em 0;
+}
+
+th, td {
+    border: 1px solid #f0f0f0;
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #4682b4;
+    color: #ffffff;
+    font-size: 1.2em;
+}
+
+td {
+    background-color: #2e3b4f;
+    color: #f0f0f0;
+}
+
+/* Pied de page */
+footer {
+    background-color: #1a2b3c;
+    color: #f0f0f0;
+    text-align: center;
+    padding: 1em 0;
+    font-size: 0.9em;
+    margin-top: 1em;
+}
+
+/* Responsivité */
+@media (max-width: 768px) {
+    body {
+        font-size: 18px;
+    }
+
+    h1 {
+        font-size: 2.5em;
+    }
+
+    h2 {
+        font-size: 2em;
+    }
+
+    button, input[type="button"], input[type="submit"] {
+        font-size: 1em;
+        padding: 8px 12px;
+    }
+}
+
+/* Cible tout texte avec un surlignement ou un fond spécial */
+::selection {
+    background-color: #a0d8ef !important;
+    color: #000000 !important;
+}
+
+mark, .highlight, .hl {
+    background-color: #a0d8ef !important;
+    color: #000000 !important;
+    font-weight: bold !important;
+    border-radius: 5px;
+    padding: 2px 4px;
+}
+
+/* Cible les balises qui pourraient contenir des surlignements */
+span[style*="background"], div[style*="background"] {
+    background-color: #a0d8ef !important;
+    color: #000000 !important;
+    font-weight: bold !important;
+    border-radius: 5px;
+}
+
+/* Mise en évidence de tout contenu potentiellement surligné */
+code, pre, tt {
+    background-color: #2e2e2e !important;
+    color: #f0f0f0 !important;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+/* Cas génériques supplémentaires */
+b, strong, em {
+    color: #57ce3b !important;
+    background-color: transparent;
+    font-weight: bold;
+}
+
+/* Cibles avec des classes ou attributs spécifiques */
+[class*="highlight"], [class*="selected"], [class*="active"] {
+    background-color: #a0d8ef !important;
+    color: #000000 !important;
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 2px 4px;
+}
