@@ -136,19 +136,15 @@
 
                 // Rediriger l'output vers une variable Python en utilisant StringIO
                 const result = await pyodide.runPythonAsync(`
-import sys
+
 from io import StringIO
-import tqdm as original_tqdm
+import sys
+from tqdm import tqdm as original_tqdm
 
-# Redéfinir tqdm globalement
-class SilentTqdm(original_tqdm.tqdm):
-    def __init__(self, *args, **kwargs):
-        kwargs['disable'] = True  # Forcer disable=True
-        super().__init__(*args, **kwargs)
-
-# Remplacer tqdm dans le namespace global
-sys.modules['tqdm'] = original_tqdm
-original_tqdm.tqdm = SilentTqdm
+# Redéfinir tqdm pour forcer disable=True
+def tqdm(*args, **kwargs):
+    kwargs['disable'] = True  # Forcer la désactivation de la barre
+    return original_tqdm(*args, **kwargs)
 
 # Rediriger stdout pour capturer les sorties
 sys.stdout = StringIO()
