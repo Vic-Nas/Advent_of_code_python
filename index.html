@@ -136,13 +136,21 @@
 
                 // Rediriger l'output vers une variable Python en utilisant StringIO
                 const result = await pyodide.runPythonAsync(`
-import sys, os
+import sys
 from io import StringIO
-from tqdm import tqdm
+import tqdm as original_tqdm
 
-os.environ['TQDM_DISABLE'] = '1'
+# Redéfinir tqdm globalement
+class SilentTqdm(original_tqdm.tqdm):
+    def __init__(self, *args, **kwargs):
+        kwargs['disable'] = True  # Forcer disable=True
+        super().__init__(*args, **kwargs)
 
-# Rediriger stdout vers une StringIO
+# Remplacer tqdm dans le namespace global
+sys.modules['tqdm'] = original_tqdm
+original_tqdm.tqdm = SilentTqdm
+
+# Rediriger stdout pour capturer les sorties
 sys.stdout = StringIO()
 
 # Input
