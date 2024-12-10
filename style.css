@@ -4,7 +4,20 @@
   --accent-couleur: #4a90e2;
 }
 
+        .date-container {
+            display: flex;
+            gap: 10px; /* Espace entre les inputs */
+        }
 
+        /* Style pour des inputs compacts */
+        .compact-input {
+            width: 70px; /* Largeur réduite */
+            padding: 5px; /* Padding réduit */
+            font-size: 14px; /* Police plus petite */
+            text-align: center; /* Centrer le texte */
+            border: 1px solid #ccc;
+            border-radius: 4px; /* Coins légèrement arrondis */
+        }
         .container {
             max-width: 800px;
             margin: 0 auto;
