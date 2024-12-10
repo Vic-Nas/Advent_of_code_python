@@ -11,8 +11,24 @@
     <div class="container">
         <h1>Advent of Code Runner</h1>
 
-        <input type="number" id="yearInput" placeholder="Année (e.g., 2024)" min="2015" max="3000">
-        <input type="number" id="dayInput" placeholder="Jour (e.g., 1)" min="1" max="25">
+        <div class="date-container">
+        <input 
+            type="number" 
+            id="yearInput" 
+            class="compact-input" 
+            placeholder="Année" 
+            min="2015" 
+            max="3000"
+        >
+        <input 
+            type="number" 
+            id="dayInput" 
+            class="compact-input" 
+            placeholder="Jour" 
+            min="1" 
+            max="31"
+        >
+    </div>
 
         <div class="drop-zone" id="dropZone">
             Glissez votre fichier input.txt ici ou
@@ -25,6 +41,14 @@
     </div>
 
     <script>
+        // Obtenir la date actuelle
+        const today = new Date();
+        
+        // Remplir l'année
+        document.getElementById('yearInput').value = today.getFullYear();
+        
+        // Remplir le jour du mois
+        document.getElementById('dayInput').value = today.getDate();
         let pyodide;
 
         document.addEventListener('DOMContentLoaded', async () => {
