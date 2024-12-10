@@ -136,8 +136,11 @@
 
                 // Rediriger l'output vers une variable Python en utilisant StringIO
                 const result = await pyodide.runPythonAsync(`
-import sys
+import sys, os
 from io import StringIO
+from tqdm import tqdm
+
+os.environ['TQDM_DISABLE'] = '1'
 
 # Rediriger stdout vers une StringIO
 sys.stdout = StringIO()
