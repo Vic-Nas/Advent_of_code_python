@@ -3,13 +3,7 @@
   --texte-clair: #e0e0e0;
   --accent-couleur: #4a90e2;
 }
-body {
-            background: #0f0f23;
-            color: #cccccc;
-            font-family: 'Source Code Pro', monospace;
-            margin: 0;
-            padding: 2em;
-        }
+
 
         .container {
             max-width: 800px;
