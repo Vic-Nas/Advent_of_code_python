@@ -1,6 +1,9 @@
 # VN
 from itertools import product 
-from tqdm import tqdm
+
+try: temp = tqdm
+except: from tqdm import tqdm
+
 rand = "."
 
 class Point:
