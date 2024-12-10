@@ -1,7 +1,6 @@
 # VN
 from itertools import product 
 from tqdm import tqdm
-import sys
 rand = "."
 
 class Point:
@@ -45,7 +44,7 @@ res1, res2 = set(), set()
 
 m1, m2 = [list(rand * SIZE) for _ in range(SIZE)], [list(rand * SIZE) for _ in range(SIZE)]
 
-for d in tqdm(product(space.named, repeat = 2), desc = "Progression", file = sys.stdout):
+for d in tqdm(product(space.named, repeat = 2), desc = "Progression"):
     if d[0].name == d[1].name and d[0] != d[1]:
         for p in space.all:
             if p.aligned(d):
