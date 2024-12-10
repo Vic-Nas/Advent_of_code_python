@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Advent of Code Runner</title>
+    <script src="https://cdn.jsdelivr.net/npm/pyodide@0.21.3/pyodide.js"></script>
+    <style>
+        body {
+            background: #0f0f23;
+            color: #cccccc;
+            font-family: 'Source Code Pro', monospace;
+            margin: 0;
+            padding: 2em;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: #00cc00;
+            text-align: center;
+        }
+
+        input, textarea, button {
+            width: 100%;
+            margin: 10px 0;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #333340;
+            background: #10101a;
+            color: #cccccc;
+            box-sizing: border-box;
+        }
+
+        .drop-zone {
+            border: 2px dashed #333340;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .drop-zone.dragover {
+            border-color: #00cc00;
+            background: #1a1a2f;
+        }
+
+        #output {
+            background: #10101a;
+            color: #cccccc;
+            border: 1px solid #333340;
+            padding: 10px;
+            white-space: pre-wrap;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        button {
+            background: #00cc00;
+            color: #ffffff;
+            text-shadow: 0 0 2px #00cc00;
+            border: none;
+            padding: 0.5em 2em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1em;
+            width: 100%;
+            
+            /* Effets de profondeur */
+            box-shadow: 
+                0 4px 6px rgba(0,0,0,0.1),
+                0 1px 3px rgba(0,0,0,0.08);
+            position: relative;
+            top: 0;
+        }
+        
+        button:hover:not(:disabled) {
+            background: #faf00;
+            text-shadow: 0 0 5px #00ff00;
+            
+            /* Effet de légère élévation au survol */
+            box-shadow: 
+                0 6px 8px rgba(0,0,0,0.15),
+                0 2px 4px rgba(0,0,0,0.12);
+            top: -2px;
+        }
+        
+        button:active:not(:disabled) {
+            /* Effet d'enfoncement lors du clic */
+            background: #00aa00;
+            top: 2px;
+            box-shadow: 
+                0 2px 4px rgba(0,0,0,0.1),
+                0 1px 2px rgba(0,0,0,0.06);
+            transition: all 0.1s ease;
+        }
+        
+        button:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+            text-shadow: none;
+            box-shadow: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Advent of Code Runner</h1>
+
+        <input type="number" id="yearInput" placeholder="Année (e.g., 2024)" min="2015" max="2024">
+        <input type="number" id="dayInput" placeholder="Jour (e.g., 1)" min="1" max="25">
+
+        <div class="drop-zone" id="dropZone">
+            Glissez votre fichier input.txt ici ou
+            <input type="file" id="inputFile" accept=".txt">
+            <textarea id="pasteInput" placeholder="Ou collez votre input ici"></textarea>
+        </div>
+
+        <button id="runButton">Exécuter</button>
+        <div id="output">Résultats s'afficheront ici...</div>
+    </div>
+
+    <script>
+        let pyodide;
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            pyodide = await loadPyodide();
+            console.log("Pyodide initialisé.");
+        });
+
+        const yearInput = document.getElementById('yearInput');
+        const dayInput = document.getElementById('dayInput');
+        const inputFile = document.getElementById('inputFile');
+        const pasteInput = document.getElementById('pasteInput');
+        const dropZone = document.getElementById('dropZone');
+        const runButton = document.getElementById('runButton');
+        const outputDiv = document.getElementById('output');
+        let fileContent = "";
+
+        // Gestion de l'importation et du drag-and-drop
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('dragover');
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('dragover');
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('dragover');
+            const file = e.dataTransfer.files[0];
+            if (file) {
+                readFile(file);
+            }
+        });
+
+        inputFile.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                readFile(file);
+            }
+        });
+
+        function readFile(file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                fileContent = e.target.result;
+                pasteInput.value = fileContent;
+            };
+            reader.readAsText(file);
+        }
+
+        // Récupération du script depuis GitHub
+        async function fetchScriptFromGitHub(year, day) {
+            const paddedDay = String(day).padStart(2, '0');
+            const url = `https://api.github.com/repos/Vic-Nas/Advent_of_code_python/contents/${year}/${paddedDay}_${year}.py`;
+
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error('Script non trouvé sur GitHub.');
+                }
+                const data = await response.json();
+                return atob(data.content); // Décodage Base64
+            } catch (error) {
+                throw new Error(`Erreur lors de la récupération du script : ${error.message}`);
+            }
+        }
+
+        // Exécution locale avec Pyodide
+        runButton.addEventListener('click', async () => {
+            const year = yearInput.value;
+            const day = dayInput.value;
+            const input = pasteInput.value.trim() || fileContent;
+
+            if (!year || !day || !input) {
+                alert("Veuillez fournir une année, un jour et un input.");
+                return;
+            }
+
+            outputDiv.textContent = "Exécution en cours...";
+
+            try {
+                // Récupérer le script depuis GitHub
+                const script = await fetchScriptFromGitHub(year, day);
+
+                // Rediriger l'output vers une variable Python en utilisant StringIO
+                const result = await pyodide.runPythonAsync(`
+import sys
+from io import StringIO
+
+# Rediriger stdout vers une StringIO
+sys.stdout = StringIO()
+
+# Input
+input_content = """${input.replace(/\\/g, "\\\\").replace(/"/g, '\\"').replace(/\n/g, "\\n")}"""
+
+# Remplacer l'utilisation explicite de 'input.txt' dans le script par 'input_content'
+def open(file, mode='r', *args, **kwargs):
+    if file == 'input.txt':
+        return StringIO(input_content)
+    raise FileNotFoundError(f"No such file: {file}")
+
+# Script téléchargé depuis GitHub
+${script}
+
+# Capturer la sortie
+output = sys.stdout.getvalue()
+
+output
+                `);
+
+                // Afficher le résultat
+                outputDiv.textContent = result || "Script exécuté avec succès.";
+            } catch (error) {
+                outputDiv.textContent = `Erreur : Input incorrect`;
+            }
+        });
+    </script>
+</body>
+</html>
