@@ -16,7 +16,7 @@
             type="number" 
             id="yearInput" 
             class="compact-input" 
-            placeholder="Année" 
+            placeholder="Year" 
             min="2015" 
             max="3000"
         >
@@ -31,13 +31,13 @@
     </div>
 
         <div class="drop-zone" id="dropZone">
-            Glissez votre fichier input.txt ici ou
+            Drag and drop input.txt
             <input type="file" id="inputFile" accept=".txt">
-            <textarea id="pasteInput" placeholder="Ou collez votre input ici"></textarea>
+            <textarea id="pasteInput" placeholder="Paste input"></textarea>
         </div>
 
-        <button id="runButton">Exécuter</button>
-        <div id="output">Résultats s'afficheront ici...</div>
+        <button id="runButton">Run</button>
+        <div id="output">Output</div>
     </div>
 
     <script>
@@ -53,7 +53,7 @@
 
         document.addEventListener('DOMContentLoaded', async () => {
             pyodide = await loadPyodide();
-            console.log("Pyodide initialisé.");
+            console.log("Ready.");
         });
 
         const yearInput = document.getElementById('yearInput');
@@ -108,12 +108,12 @@
             try {
                 const response = await fetch(url);
                 if (!response.ok) {
-                    throw new Error('Script non trouvé sur GitHub.');
+                    throw new Error('Script not found on GitHub.');
                 }
                 const data = await response.json();
                 return atob(data.content); // Décodage Base64
             } catch (error) {
-                throw new Error(`Erreur lors de la récupération du script : ${error.message}`);
+                throw new Error(`Error while getting the script : ${error.message}`);
             }
         }
 
@@ -124,11 +124,11 @@
             const input = pasteInput.value.trim() || fileContent;
 
             if (!year || !day || !input) {
-                alert("Veuillez fournir une année, un jour et un input.");
+                alert("Input missing");
                 return;
             }
 
-            outputDiv.textContent = "Exécution en cours...";
+            outputDiv.textContent = "Running";
 
             try {
                 // Récupérer le script depuis GitHub
@@ -161,9 +161,9 @@ output
                 `);
 
                 // Afficher le résultat
-                outputDiv.textContent = result || "Script exécuté avec succès.";
+                outputDiv.textContent = result || "Script successfully run.";
             } catch (error) {
-                outputDiv.textContent = `Erreur : Input incorrect ou script non encore disponible.`;
+                outputDiv.textContent = `Erreur : Bad input or unavailable script.`;
             }
         });
     </script>
