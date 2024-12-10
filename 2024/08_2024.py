@@ -1,6 +1,7 @@
 # VN
 from itertools import product 
 from tqdm import tqdm
+import sys
 rand = "."
 
 class Point:
