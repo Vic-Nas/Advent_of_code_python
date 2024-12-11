@@ -19,5 +19,5 @@ for row in open("input.txt", "r").readlines() :
             res2 += 1
             break 
 
-print(f"\nPart1: {res1}")
-print(f"Part2: {res2}\n")
+print(f"\nPart1: {res1}\nPart2: {res2}\n")
+#VN
