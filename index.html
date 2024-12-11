@@ -139,7 +139,7 @@
 
 from io import StringIO
 import sys
-tqdm = list
+def tqdm(iterable, desc = ""): return list(iterable)
 
 # Rediriger stdout pour capturer les sorties
 sys.stdout = StringIO()
