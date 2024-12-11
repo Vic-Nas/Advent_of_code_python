@@ -31,6 +31,6 @@ res2 = cpt(data, directions[::2],
         all(get_el(i + k * dx, j + k * dy, grid) == get_el(i + k * -dy, j + k * dx, grid) == val 
         for k, val in [(-1, "M"), (1, "S")]))
 
-print(f"\nPart1: {res1}")
-print(f"Part2: {res2}\n")
+print(f"\nPart1: {res1}\nPart2: {res2}\n")
+
 #VN
