@@ -1,7 +1,8 @@
-  :root {
+<style>
+        :root {
             --background-color: #0d0d22;
             --text-color: #e6e6e6;
-            --highlight-color: #5aff5a;
+            --highlight-color: #3cb371; /* Adjusted green to a softer shade */
             --nav-bg-color: #1a1a3a;
             --link-hover: #ffeb3b;
             --border-color: #292952;
@@ -99,13 +100,18 @@
 
         .drop-zone {
             border: 2px dashed var(--highlight-color);
-            padding: 1rem;
+            padding: 2rem; /* Increased size */
             border-radius: 8px;
             transition: 0.3s ease;
+            text-align: center;
         }
 
         .drop-zone:hover {
             background: rgba(255, 255, 255, 0.1);
+        }
+
+        .drop-zone input {
+            margin-top: 1rem;
         }
 
         button {
