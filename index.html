@@ -139,12 +139,7 @@
 
 from io import StringIO
 import sys
-from tqdm import tqdm as original_tqdm
-
-# Redéfinir tqdm pour forcer disable=True
-def tqdm(*args, **kwargs):
-    kwargs['disable'] = True  # Forcer la désactivation de la barre
-    return original_tqdm(*args, **kwargs)
+tqdm = list
 
 # Rediriger stdout pour capturer les sorties
 sys.stdout = StringIO()
