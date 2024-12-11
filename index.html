@@ -1,172 +1,146 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Advent of Code Runner</title>
-    <script src="https://cdn.jsdelivr.net/npm/pyodide@0.21.3/pyodide.js"></script>
-    <link href="style.css" rel="stylesheet" >
-    <link rel="icon" href="icon.ico" type="image/x-icon">
-</head>
-<body>
-   <div class="stars"></div>
+body {
+    font-family: 'Source Code Pro', monospace;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #0d0f1b 0%, #1a1e2e 100%);
+    color: #e0e0e0;
+    line-height: 1.6;
+}
 
-    <nav class="top-nav">
-        <a href="https://adventofcode.com" target="_blank" class="nav-link">Advent of Code Official</a>
-        <a href="https://github.com/Vic-Nas/Advent_of_code_python" id="pythonFilesBtn" class="nav-link">Python Files</a>
-    </nav>
+.stars {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: 
+        linear-gradient(rgba(13, 15, 27, 0.7), rgba(13, 15, 27, 0.7)),
+        url('https://source.unsplash.com/random/1920x1080/?space,stars') no-repeat center;
+    background-size: cover;
+    z-index: -1;
+    top: 0;
+    left: 0;
+}
 
-    <div class="container">
-        <h1>Advent of Code Runner</h1>
+.top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #1c2133;
+    padding: 15px 30px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
 
-        <div class="content-wrapper">
-            <div class="input-section">
-                <div class="date-container">
-                    <input type="number" id="yearInput" class="compact-input" placeholder="Year" min="2015" max="3000">
-                    <input type="number" id="dayInput" class="compact-input" placeholder="Day" min="1" max="25">
-                </div>
-                <div class="drop-zone" id="dropZone">
-                    Drag and drop input.txt or click below:
-                    <br>
-                    <input type="file" id="inputFile" accept=".txt">
-                    <textarea id="pasteInput" placeholder="Paste input"></textarea>
-                </div>
-                <button id="runButton">Execute</button>
-            </div>
+.nav-link {
+    color: #4dd0e1;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    padding: 8px 15px;
+    border-radius: 5px;
+}
 
-            <div class="output-section" style="flex-grow: 1; margin-left: 20px;">
-                <div class="output-header">Results</div>
-                <div id="output" style="min-height: 400px;">Output</div>
-            </div>
-        </div>
-    </div>
-    <script>
-        // Obtenir la date actuelle
-        const today = new Date();
-        
-        // Remplir l'année
-        document.getElementById('yearInput').value = today.getFullYear();
-        
-        // Remplir le jour du mois
-        document.getElementById('dayInput').value = today.getDate();
-        let pyodide;
+.nav-link:hover {
+    background: rgba(77, 208, 225, 0.1);
+    color: #7dfff3;
+    transform: scale(1.05);
+}
 
-        document.addEventListener('DOMContentLoaded', async () => {
-            pyodide = await loadPyodide();
-            console.log("Ready.");
-        });
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
 
-        const yearInput = document.getElementById('yearInput');
-        const dayInput = document.getElementById('dayInput');
-        const inputFile = document.getElementById('inputFile');
-        const pasteInput = document.getElementById('pasteInput');
-        const dropZone = document.getElementById('dropZone');
-        const runButton = document.getElementById('runButton');
-        const outputDiv = document.getElementById('output');
-        let fileContent = "";
+h1 {
+    font-size: 3rem;
+    margin-bottom: 30px;
+    color: #4dd0e1;
+    text-align: center;
+    text-shadow: 0 0 15px rgba(77, 208, 225, 0.5);
+    letter-spacing: 2px;
+}
 
-        // Gestion de l'importation et du drag-and-drop
-        dropZone.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            dropZone.classList.add('dragover');
-        });
+.content-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
 
-        dropZone.addEventListener('dragleave', () => {
-            dropZone.classList.remove('dragover');
-        });
+.input-section {
+    background: rgba(22, 26, 41, 0.7);
+    border: 2px dashed #4dd0e1;
+    border-radius: 10px;
+    padding: 30px;
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
 
-        dropZone.addEventListener('drop', (e) => {
-            e.preventDefault();
-            dropZone.classList.remove('dragover');
-            const file = e.dataTransfer.files[0];
-            if (file) {
-                readFile(file);
-            }
-        });
+.input-section:hover {
+    box-shadow: 0 0 20px rgba(77, 208, 225, 0.2);
+}
 
-        inputFile.addEventListener('change', (e) => {
-            const file = e.target.files[0];
-            if (file) {
-                readFile(file);
-            }
-        });
+.drop-zone {
+    background: #1c2133;
+    border: 2px solid #4dd0e1;
+    color: #4dd0e1;
+    padding: 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+}
 
-        function readFile(file) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                fileContent = e.target.result;
-                pasteInput.value = fileContent;
-            };
-            reader.readAsText(file);
-        }
+.drop-zone:hover {
+    background: rgba(77, 208, 225, 0.1);
+    transform: scale(1.02);
+}
 
-        // Récupération du script depuis GitHub
-        async function fetchScriptFromGitHub(year, day) {
-            const paddedDay = String(day).padStart(2, '0');
-            const url = `https://api.github.com/repos/Vic-Nas/Advent_of_code_python/contents/${year}/${paddedDay}_${year}.py`;
+button {
+    margin-top: 20px;
+    padding: 12px 25px;
+    font-size: 1.1rem;
+    color: #0d0f1b;
+    background: #4dd0e1;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
 
-            try {
-                const response = await fetch(url);
-                if (!response.ok) {
-                    throw new Error('Script not found on GitHub.');
-                }
-                const data = await response.json();
-                return atob(data.content); // Décodage Base64
-            } catch (error) {
-                throw new Error(`Error while getting the script : ${error.message}`);
-            }
-        }
+button:hover {
+    background: #7dfff3;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(77, 208, 225, 0.3);
+}
 
-        // Exécution locale avec Pyodide
-        runButton.addEventListener('click', async () => {
-            const year = yearInput.value;
-            const day = dayInput.value;
-            const input = pasteInput.value.trim() || fileContent;
+.output-section {
+    width: 100%;
+    max-width: 900px;
+    background: rgba(22, 26, 41, 0.8);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    margin-top: 20px;
+}
 
-            if (!year || !day || !input) {
-                alert("Input missing");
-                return;
-            }
+#output {
+    min-height: 500px;
+    background: #1c2133;
+    border-radius: 8px;
+    padding: 20px;
+    font-family: 'Source Code Pro', monospace;
+    color: #4dd0e1;
+    overflow-y: auto;
+}
 
-            outputDiv.textContent = "Running";
-
-            try {
-                // Récupérer le script depuis GitHub
-                const script = await fetchScriptFromGitHub(year, day);
-
-                // Rediriger l'output vers une variable Python en utilisant StringIO
-                const result = await pyodide.runPythonAsync(`
-
-from io import StringIO
-import sys
-def tqdm(iterable, desc = ""): return list(iterable)
-
-# Rediriger stdout pour capturer les sorties
-sys.stdout = StringIO()
-
-# Input
-input_content = """${input.replace(/\\/g, "\\\\").replace(/"/g, '\\"').replace(/\n/g, "\\n")}"""
-
-# Remplacer l'utilisation explicite de 'input.txt' dans le script par 'input_content'
-def open(file, mode='r', *args, **kwargs):
-    if file == 'input.txt':
-        return StringIO(input_content)
-    raise FileNotFoundError(f"No such file: {file}")
-
-# Script téléchargé depuis GitHub
-${script}
-
-# Capturer la sortie
-output = sys.stdout.getvalue()
-
-output
-                `);
-
-                // Afficher le résultat
-                outputDiv.textContent = result || "Script successfully run.";
-            } catch (error) {
-                outputDiv.textContent = `Errorr : ${error}`;
-            }
-        });
-    </script>
-</body>
-</html>
+.output-header {
+    color: #4dd0e1;
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #4dd0e1;
+    padding-bottom: 10px;
+}
