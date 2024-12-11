@@ -19,5 +19,5 @@ for i in range(len(inp)):
         if inp[i][j] == "0":
             res1 += score(i, j, 0)
             res2 += score(i, j, 1)
-print(f"\nPart1: {res1}", "Alibaba")
+print(f"\nPart1: {res1}")
 print(f"Part2: {res2}\n")
