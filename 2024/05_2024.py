@@ -34,5 +34,6 @@ for update in updates :
     if check(update, orders) : res1 += int(update[len(update) // 2])
     else : res2 += int(sorter(update, orders)[len(update) // 2])
 
-print(f"\nPart1: {res1}\nPart2: {res2}\n")
+print(f"\nPart1: {res1}")
+print(f"Part2: {res2}\n")
 #VN
