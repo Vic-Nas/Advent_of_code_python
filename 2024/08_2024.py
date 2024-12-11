@@ -58,6 +58,5 @@ for d in tqdm(product(space.named, repeat = 2), desc = "Progression"):
                     m1[p.y][p.x] = "#"
 
 f = lambda m: "\n".join(["".join(r) for r in m])
-print(f"Part1:\n", f(m1) + "\n", "\2:\n", f(m2) + "\n", sep = "\n")
 print(f"\nPart1: {len(res1)}\nPart2: {len(res2)}\n")
 # VN
