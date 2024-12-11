@@ -26,6 +26,6 @@ for i in range(len(memory)):
                 res1 += p
                 res2 += 0 if dont else p
         
-print(f"\nPart1: {res1}")
-print(f"Part2: {res2}\n")
+print(f"\nPart1: {res1}\nPart2: {res2}\n")
+
 #VN
