@@ -8,37 +8,38 @@
     <link rel="icon" href="icon.ico" type="image/x-icon">
 </head>
 <body>
-    <div class="container">
-        <h1>Advent of Code Runner</h1>
-
+<div class="container"> 
+    <h1>Advent of Code Runner</h1>
+    <div class="form-container">
         <div class="date-container">
-        <input 
-            type="number" 
-            id="yearInput" 
-            class="compact-input" 
-            placeholder="Year" 
-            min="2015" 
-            max="3000"
-        >
-        <input 
-            type="number" 
-            id="dayInput" 
-            class="compact-input" 
-            placeholder="Jour" 
-            min="1" 
-            max="31"
-        >
-    </div>
-
+            <input 
+                type="number" 
+                id="yearInput" 
+                class="compact-input" 
+                placeholder="Year" 
+                min="2015" 
+                max="3000"
+            >
+            <input 
+                type="number" 
+                id="dayInput" 
+                class="compact-input" 
+                placeholder="Jour" 
+                min="1" 
+                max="31"
+            >
+        </div>
         <div class="drop-zone" id="dropZone">
             Drag and drop input.txt
             <input type="file" id="inputFile" accept=".txt">
             <textarea id="pasteInput" placeholder="Paste input"></textarea>
         </div>
-
         <button id="runButton">Run</button>
+    </div>
+    <div class="output-container">
         <div id="output">Output</div>
     </div>
+</div>
 
     <script>
         // Obtenir la date actuelle
