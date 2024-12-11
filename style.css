@@ -1,135 +1,146 @@
 body {
-    font-family: 'Roboto Mono', monospace;
+    font-family: 'Source Code Pro', monospace;
     margin: 0;
     padding: 0;
-    background: #0d0f1b;
-    color: #ffffff;
+    background: linear-gradient(135deg, #0d0f1b 0%, #1a1e2e 100%);
+    color: #e0e0e0;
+    line-height: 1.6;
 }
 
 .stars {
-    position: absolute;
+    position: fixed;
     width: 100%;
     height: 100%;
-    background: url('https://source.unsplash.com/random/1920x1080/?space') no-repeat center;
+    background: 
+        linear-gradient(rgba(13, 15, 27, 0.7), rgba(13, 15, 27, 0.7)),
+        url('https://source.unsplash.com/random/1920x1080/?space,stars') no-repeat center;
     background-size: cover;
     z-index: -1;
+    top: 0;
+    left: 0;
 }
 
 .top-nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #161a29;
-    padding: 10px 20px;
-    border-bottom: 2px solid #2d344b;
+    background: #1c2133;
+    padding: 15px 30px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 .nav-link {
-    color: #ffffff;
+    color: #4dd0e1;
     text-decoration: none;
     font-size: 1rem;
-    font-weight: bold;
-    transition: color 0.3s;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    padding: 8px 15px;
+    border-radius: 5px;
 }
 
 .nav-link:hover {
-    color: #4dd0e1;
+    background: rgba(77, 208, 225, 0.1);
+    color: #7dfff3;
+    transform: scale(1.05);
 }
 
 .container {
-    padding: 30px;
-    text-align: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
 }
 
 h1 {
-    font-size: 2.5rem;
-    margin-bottom: 20px;
+    font-size: 3rem;
+    margin-bottom: 30px;
     color: #4dd0e1;
-    text-shadow: 0px 2px 5px rgba(0, 255, 255, 0.7);
+    text-align: center;
+    text-shadow: 0 0 15px rgba(77, 208, 225, 0.5);
+    letter-spacing: 2px;
 }
 
 .content-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: 20px;
+    gap: 30px;
 }
 
 .input-section {
-    padding: 20px;
+    background: rgba(22, 26, 41, 0.7);
     border: 2px dashed #4dd0e1;
-    border-radius: 8px;
-    width: 300px;
+    border-radius: 10px;
+    padding: 30px;
+    width: 100%;
+    max-width: 500px;
     text-align: center;
+    transition: all 0.3s ease;
 }
 
-.date-container {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-}
-
-.compact-input {
-    width: 80px;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ffffff;
-    background: #161a29;
-    color: #ffffff;
+.input-section:hover {
+    box-shadow: 0 0 20px rgba(77, 208, 225, 0.2);
 }
 
 .drop-zone {
-    margin-top: 15px;
-    background: #161a29;
-    padding: 10px;
-    border-radius: 5px;
-    font-size: 0.9rem;
-    color: #bbbbbb;
+    background: #1c2133;
+    border: 2px solid #4dd0e1;
+    color: #4dd0e1;
+    padding: 20px;
+    border-radius: 8px;
     cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1rem;
 }
 
-textarea {
-    width: 100%;
-    height: 60px;
-    margin-top: 10px;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ffffff;
-    background: #161a29;
-    color: #ffffff;
-    resize: none;
+.drop-zone:hover {
+    background: rgba(77, 208, 225, 0.1);
+    transform: scale(1.02);
 }
 
 button {
-    margin-top: 15px;
-    padding: 10px 20px;
-    font-size: 1rem;
+    margin-top: 20px;
+    padding: 12px 25px;
+    font-size: 1.1rem;
     color: #0d0f1b;
     background: #4dd0e1;
     border: none;
-    border-radius: 5px;
+    border-radius: 6px;
     cursor: pointer;
-    transition: background 0.3s;
+    transition: all 0.3s ease;
+    font-weight: 600;
 }
 
 button:hover {
-    background: #3ba8b5;
+    background: #7dfff3;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(77, 208, 225, 0.3);
 }
 
 .output-section {
-    width: 90%;
-    max-width: 700px;
-    text-align: left;
-    background: #161a29;
+    width: 100%;
+    max-width: 900px;
+    background: rgba(22, 26, 41, 0.8);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    margin-top: 20px;
+}
+
+#output {
+    min-height: 500px;
+    background: #1c2133;
+    border-radius: 8px;
     padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0px 0px 10px rgba(0, 255, 255, 0.2);
+    font-family: 'Source Code Pro', monospace;
+    color: #4dd0e1;
+    overflow-y: auto;
 }
 
 .output-header {
-    font-weight: bold;
-    margin-bottom: 10px;
-    font-size: 1.2rem;
     color: #4dd0e1;
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #4dd0e1;
+    padding-bottom: 10px;
 }
