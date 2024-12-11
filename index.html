@@ -8,50 +8,32 @@
     <link rel="icon" href="icon.ico" type="image/x-icon">
 </head>
 <body>
-    <nav class="top-nav">
-        <a href="https://adventofcode.com" target="_blank" class="nav-link">Advent of Code Official</a>
-        <a href="https://github.com/Vic-Nas/Advent_of_code_python" id="pythonFilesBtn" class="nav-link">Python Files</a>
-    </nav>
     <div class="stars"></div>
+
     <nav class="top-nav">
         <a href="https://adventofcode.com" target="_blank" class="nav-link">Advent of Code Official</a>
         <a href="https://github.com/Vic-Nas/Advent_of_code_python" id="pythonFilesBtn" class="nav-link">Python Files</a>
     </nav>
+
     <div class="container">
         <h1>Advent of Code Runner</h1>
+
         <div class="content-wrapper">
             <div class="input-section">
                 <div class="date-container">
-                    <input 
-                        type="number" 
-                        id="yearInput" 
-                        class="compact-input" 
-                        placeholder="Year" 
-                        min="2015" 
-                        max="3000"
-                    >
-                    <input 
-                        type="number" 
-                        id="dayInput" 
-                        class="compact-input" 
-                        placeholder="Day" 
-                        min="1" 
-                        max="25"
-                    >
+                    <input type="number" id="yearInput" class="compact-input" placeholder="Year" min="2015" max="3000">
+                    <input type="number" id="dayInput" class="compact-input" placeholder="Day" min="1" max="25">
                 </div>
                 <div class="drop-zone" id="dropZone">
                     Drag and drop input.txt
-                    <input type="file" id="inputFile" accept=".txt">
+                    <input type="file" id="inputFile" accept=".txt" style="display: none;">
                     <textarea id="pasteInput" placeholder="Paste input"></textarea>
                 </div>
                 <button id="runButton">Execute</button>
             </div>
+
             <div class="output-section">
-                <div class="output-header">
-                    <span class="star-decoration">★</span>
-                    Results
-                    <span class="star-decoration">★</span>
-                </div>
+                <div class="output-header">Results</div>
                 <div id="output">Output</div>
             </div>
         </div>
